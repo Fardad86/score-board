@@ -1,6 +1,6 @@
 // پیکربندی Firebase
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.1.3/firebase-app.js";
-import { getFirestore, collection, addDoc, getDocs, updateDoc, doc, deleteDoc } from "https://www.gstatic.com/firebasejs/9.1.3/firebase-firestore.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+import { getFirestore, collection, addDoc, getDocs, updateDoc, doc, deleteDoc } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
 
 const firebaseConfig = {
     apiKey: "AIzaSyDkfWwCITUJf1qR-3A2KD-xwf87ho98GTc",
@@ -11,21 +11,28 @@ const firebaseConfig = {
     appId: "1:993583824589:web:0f9bb30c2bf766b238f384"
 };
 
-
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 // منطق لاگین ادمین
-document.getElementById('login-form')?.addEventListener('submit', function(event) {
-    event.preventDefault();
-    const username = document.getElementById('username').value;
-    const password = document.getElementById('password').value;
-
-    if (username === 'admin' && password === 'admin0912') {
-        window.location.href = 'admin.html';
-    } else {
-        document.getElementById('error-message').innerText = 'Invalid login credentials';
+document.addEventListener('DOMContentLoaded', () => {
+    const loginForm = document.getElementById('login-form');
+    
+    if (loginForm) {
+        loginForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+        
+            if (username === 'admin' && password === 'admin0912') {
+                window.location.href = 'admin.html';
+            } else {
+                document.getElementById('error-message').innerText = 'Invalid login credentials';
+            }
+        });
     }
+
+    loadTeams();
 });
 
 // منطق مدیریت تیم‌ها
@@ -58,6 +65,3 @@ async function loadTeams() {
         });
     }
 }
-
-loadTeams();
-
