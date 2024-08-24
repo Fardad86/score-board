@@ -7,6 +7,7 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 
 document.addEventListener('DOMContentLoaded', () => {
     const scoreBoard = document.getElementById('score-board');
+    const refreshBtn = document.getElementById('refresh-btn');
 
     // تابع برای به‌روزرسانی اسکوربورد
     async function updateScoreBoard() {
@@ -45,15 +46,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // اشتراک‌گذاری real-time با استفاده از Subscription
-    const subscription = supabase
-        .from('teams')
-        .on('*', payload => {
-            console.log('Change received!', payload);
-            updateScoreBoard();
-        })
-        .subscribe();
-
     // بارگذاری اولیه داده‌ها
     updateScoreBoard();
+
+    // اضافه کردن عملکرد به دکمه رفرش
+    refreshBtn.addEventListener('click', () => {
+        updateScoreBoard();
+    });
 });
