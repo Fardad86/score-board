@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const deleteTeamSelect = document.getElementById('delete-team-select');
     const teamBoard = document.getElementById('team-board');
 
+    // Load teams into dropdown and display them
     async function loadTeams() {
         updateTeamSelect.innerHTML = '';
         deleteTeamSelect.innerHTML = '';
@@ -19,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const { data: teams, error } = await supabase
             .from('teams')
             .select('*');
-        
+
         if (error) {
             console.error('Error loading teams:', error);
             return;
@@ -63,12 +64,23 @@ document.addEventListener('DOMContentLoaded', () => {
         const teamScore = parseInt(document.getElementById('update-team-score').value, 10);
         const teamStatus = document.getElementById('update-team-status').value;
 
+        // Get current score to add to it
+        const { data: currentData, error: fetchError } = await supabase
+            .from('teams')
+            .select('score')
+            .eq('id', teamId)
+            .single();
+
+        if (fetchError) {
+            console.error('Error fetching current score:', fetchError);
+            return;
+        }
+
+        const newScore = currentData.score + teamScore;
+
         const { error } = await supabase
             .from('teams')
-            .update({ 
-                score: teamScore + (await getCurrentScore(teamId)),
-                status: teamStatus 
-            })
+            .update({ score: newScore, status: teamStatus })
             .eq('id', teamId);
 
         if (error) {
@@ -96,21 +108,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         loadTeams();
     });
-
-    async function getCurrentScore(teamId) {
-        const { data, error } = await supabase
-            .from('teams')
-            .select('score')
-            .eq('id', teamId)
-            .single();
-        
-        if (error) {
-            console.error('Error fetching score:', error);
-            return 0;
-        }
-
-        return data.score;
-    }
 
     loadTeams();
 });
