@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     createTeamForm.addEventListener('submit', async function(event) {
         event.preventDefault();
         const teamName = document.getElementById('create-team-name').value;
-
+    
         try {
             const { error } = await supabase.from('teams').insert([{ name: teamName, score: 0, status: '' }]);
             if (error) throw error;
@@ -49,8 +49,10 @@ document.addEventListener('DOMContentLoaded', async () => {
             loadTeams(); // Refresh the team list
         } catch (error) {
             console.error("Error creating team: ", error);
+            alert('Failed to create team');
         }
     });
+
 
     // Update Team
     updateTeamForm.addEventListener('submit', async function(event) {
