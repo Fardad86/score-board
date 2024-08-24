@@ -16,24 +16,27 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
+// Hardcoded credentials
+const ADMIN_USERNAME = "admin";
+const ADMIN_PASSWORD = "admin0912";
+
 // Admin login logic
 document.addEventListener('DOMContentLoaded', () => {
     const loginForm = document.getElementById('login-form');
     
     if (loginForm) {
-        loginForm.addEventListener('submit', async function(event) {
+        loginForm.addEventListener('submit', function(event) {
             event.preventDefault();
             const username = document.getElementById('username').value;
             const password = document.getElementById('password').value;
-        
-            try {
-                // Sign in with email and password
-                await signInWithEmailAndPassword(auth, username, password);
+
+            // Simple username and password check
+            if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
                 // Redirect to admin page on successful login
                 window.location.href = 'admin.html';
-            } catch (error) {
+            } else {
                 // Display error message
-                document.getElementById('error-message').innerText = error.message;
+                document.getElementById('error-message').innerText = 'Invalid login credentials';
             }
         });
     }
