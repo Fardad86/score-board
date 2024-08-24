@@ -1,88 +1,67 @@
-import { createClient } from 'https://cdn.skypack.dev/@supabase/supabase-js';
+import { createClient } from '@supabase/supabase-js'
 
-// تعریف URL و API Key
-const supabaseUrl = 'https://pyecsyykgzeionihrhwi.supabase.co';
-const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InB5ZWNzeXlrZ3plaW9uaWhyaHdpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjQ1MjIzNzMsImV4cCI6MjA0MDA5ODM3M30.oBNxX9Hl-89r_aCrzLJwbkdtdJB-e7rhOmhZd0q9RUc';
-const supabase = createClient(supabaseUrl, supabaseKey);
+const supabaseUrl = 'https://pyecsyykgzeionihrhwi.supabase.co'
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InB5ZWNzeXlrZ3plaW9uaWhyaHdpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjQ1MjIzNzMsImV4cCI6MjA0MDA5ODM3M30.oBNxX9Hl-89r_aCrzLJwbkdtdJB-e7rhOmhZd0q9RUc'
+const supabase = createClient(supabaseUrl, supabaseKey)
 
-document.addEventListener('DOMContentLoaded', () => {
+// Handle create/update team
+document.addEventListener('DOMContentLoaded', async () => {
     const createTeamForm = document.getElementById('create-team-form');
-    const deleteTeamForm = document.getElementById('delete-team-form');
-    const teamBoard = document.getElementById('team-board');
+    const teamSelect = document.getElementById('team-select');
+    const teamList = document.getElementById('team-list');
 
-    // تابع برای بارگذاری تیم‌ها
     async function loadTeams() {
-        teamBoard.innerHTML = '';
-
-        try {
-            const { data, error } = await supabase
-                .from('teams')
-                .select('*');
-
-            if (error) throw error;
-
-            teamBoard.innerHTML = `
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Team Name</th>
-                            <th>Score</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        ${data.map(team => `
-                            <tr>
-                                <td>${team.name}</td>
-                                <td>${team.score}</td>
-                                <td>${team.status}</td>
-                            </tr>
-                        `).join('')}
-                    </tbody>
-                </table>
-            `;
-        } catch (error) {
-            console.error("Error loading teams: ", error);
+        const { data: teams, error } = await supabase.from('teams').select();
+        if (error) {
+            console.error('Error fetching teams:', error);
+            return;
         }
+
+        teamSelect.innerHTML = '<option value="">Select a team</option>';
+        teamList.innerHTML = '';
+
+        teams.forEach(team => {
+            teamSelect.innerHTML += `<option value="${team.name}">${team.name}</option>`;
+            teamList.innerHTML += `
+                <div class="team-item">
+                    <span>${team.name} - Score: ${team.score}</span>
+                    <button data-name="${team.name}" class="delete-btn">Delete</button>
+                </div>
+            `;
+        });
+
+        // Add delete button event listeners
+        document.querySelectorAll('.delete-btn').forEach(button => {
+            button.addEventListener('click', async (event) => {
+                const teamName = event.target.dataset.name;
+                const { error } = await supabase.from('teams').delete().eq('name', teamName);
+                if (error) {
+                    console.error('Error deleting team:', error);
+                } else {
+                    loadTeams(); // Refresh team list
+                }
+            });
+        });
     }
 
-    // تابع برای ارسال فرم ایجاد/به‌روزرسانی تیم
-    createTeamForm.addEventListener('submit', async (event) => {
+    createTeamForm.addEventListener('submit', async function(event) {
         event.preventDefault();
-        const name = document.getElementById('team-name').value;
-        const score = parseInt(document.getElementById('team-score').value);
-        const status = document.getElementById('team-status').value;
+        const teamName = document.getElementById('team-name').value;
+        const teamScore = document.getElementById('team-score').value;
+        const teamStatus = document.getElementById('team-status').value;
 
         try {
-            const { data, error } = await supabase
-                .from('teams')
-                .upsert([{ name, score, status }]);
-
-            if (error) throw error;
-            loadTeams();
+            await supabase.from('teams').upsert({
+                name: teamName,
+                score: parseInt(teamScore, 10),
+                status: teamStatus
+            });
+            alert('Team created/updated successfully');
+            loadTeams(); // Refresh the team list
         } catch (error) {
-            console.error("Error creating/updating team: ", error);
+            console.error("Error adding/updating team: ", error);
         }
     });
 
-    // تابع برای ارسال فرم حذف تیم
-    deleteTeamForm.addEventListener('submit', async (event) => {
-        event.preventDefault();
-        const name = document.getElementById('delete-team-name').value;
-
-        try {
-            const { data, error } = await supabase
-                .from('teams')
-                .delete()
-                .eq('name', name);
-
-            if (error) throw error;
-            loadTeams();
-        } catch (error) {
-            console.error("Error deleting team: ", error);
-        }
-    });
-
-    // بارگذاری اولیه تیم‌ها
-    loadTeams();
+    loadTeams(); // Initial load of teams
 });
