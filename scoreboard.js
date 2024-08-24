@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // اشتراک real-time برای به‌روزرسانی اسکوربورد
+    // اشتراک‌گذاری real-time با استفاده از Subscription
     const subscription = supabase
         .from('teams')
         .on('*', payload => {
