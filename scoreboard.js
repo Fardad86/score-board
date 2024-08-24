@@ -1,37 +1,38 @@
 import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
 
-const supabaseUrl = 'https://your-project-id.supabase.co'; // Replace with your Supabase URL
-const supabaseKey = 'your-public-anon-key'; // Replace with your Supabase Key
+const supabaseUrl = 'https://pyecsyykgzeionihrhwi.supabase.co';
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InB5ZWNzeXlrZ3plaW9uaWhyaHdpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjQ1MjIzNzMsImV4cCI6MjA0MDA5ODM3M30.oBNxX9Hl-89r_aCrzLJwbkdtdJB-e7rhOmhZd0q9RUc';
+
 const supabase = createClient(supabaseUrl, supabaseKey);
 
-document.addEventListener('DOMContentLoaded', () => {
-    const refreshButton = document.getElementById('refresh-button');
-    const scoreBoard = document.getElementById('score-board');
+// Function to load teams and display on scoreboard
+async function loadTeams() {
+    const { data, error } = await supabase
+        .from('teams')
+        .select('*');
 
-    async function loadTeams() {
-        scoreBoard.innerHTML = '';
-
-        try {
-            const { data: teams, error } = await supabase.from('teams').select('*');
-            if (error) throw error;
-
-            teams.forEach(team => {
-                scoreBoard.innerHTML += `
-                    <div class="team">
-                        <h4>${team.name}</h4>
-                        <p>Score: ${team.score}</p>
-                        <p>Status: ${team.status}</p>
-                    </div>
-                `;
-            });
-        } catch (error) {
-            console.error('Error loading teams:', error);
-        }
+    if (error) {
+        console.error('Error loading teams:', error);
+        return;
     }
 
-    refreshButton.addEventListener('click', () => {
-        loadTeams(); // Refresh the list when button is clicked
-    });
+    const scoreboard = document.getElementById('score-board');
+    scoreboard.innerHTML = '';
 
-    loadTeams(); // Initial load of teams
-});
+    data.forEach(team => {
+        const row = document.createElement('div');
+        row.className = 'score-row';
+        row.innerHTML = `
+            <div class="team-name">${team.name}</div>
+            <div class="team-score">${team.score}</div>
+            <div class="team-status">${team.status}</div>
+        `;
+        scoreboard.appendChild(row);
+    });
+}
+
+// Event listener for refresh button
+document.getElementById('refresh-scoreboard').addEventListener('click', loadTeams);
+
+// Initial load
+loadTeams();
