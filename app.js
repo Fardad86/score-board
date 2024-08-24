@@ -13,8 +13,8 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
 
 // Admin login logic
 document.addEventListener('DOMContentLoaded', () => {
@@ -40,24 +40,25 @@ document.addEventListener('DOMContentLoaded', () => {
 // Logic for adding and managing teams
 const addTeamBtn = document.getElementById('add-team-btn');
 const scoreBoard = document.getElementById('score-board');
-const adminSection = document.getElementById('admin-section');
 
 if (addTeamBtn) {
     addTeamBtn.addEventListener('click', async () => {
         const teamName = document.getElementById('team-name').value;
-        await addDoc(collection(db, "teams"), {
-            name: teamName,
-            score: 0,
-            status: ''
-        });
-        loadTeams();
+        if (teamName) {
+            await db.collection("teams").add({
+                name: teamName,
+                score: 0,
+                status: ''
+            });
+            loadTeams();
+        }
     });
 }
 
 async function loadTeams() {
     if (scoreBoard) {
         scoreBoard.innerHTML = '';
-        const querySnapshot = await getDocs(collection(db, "teams"));
+        const querySnapshot = await db.collection("teams").get();
         querySnapshot.forEach((doc) => {
             const team = doc.data();
             const teamDiv = document.createElement('div');
@@ -70,8 +71,8 @@ async function loadTeams() {
 
 // Function to update team score or status
 async function updateTeam(teamId, newScore, newStatus) {
-    const teamRef = doc(db, "teams", teamId);
-    await updateDoc(teamRef, {
+    const teamRef = db.collection("teams").doc(teamId);
+    await teamRef.update({
         score: newScore,
         status: newStatus
     });
@@ -80,6 +81,7 @@ async function updateTeam(teamId, newScore, newStatus) {
 
 // Function to delete a team
 async function deleteTeam(teamId) {
-    await deleteDoc(doc(db, "teams", teamId));
+    await db.collection("teams").doc(teamId).delete();
     loadTeams();
 }
+
