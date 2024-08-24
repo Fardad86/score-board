@@ -1,16 +1,79 @@
 body {
-    font-family: Arial, sans-serif;
-    margin: 20px;
+    font-family: 'Arial', sans-serif;
+    background-color: #121212;
+    color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
 }
-.team {
-    margin: 10px 0;
+
+.container {
+    text-align: center;
+    padding: 20px;
+    border: 2px solid #1DB954;
+    border-radius: 10px;
+    background-color: #1A1A1A;
+    box-shadow: 0px 0px 15px rgba(0, 255, 0, 0.2);
+    animation: fadeIn 1s ease-in-out;
+}
+
+h1, h2 {
+    color: #1DB954;
+}
+
+.buttons .btn {
+    background-color: #1DB954;
+    color: #fff;
+    padding: 10px 20px;
+    margin: 10px;
+    border-radius: 5px;
+    text-decoration: none;
+    display: inline-block;
+    transition: background-color 0.3s ease;
+}
+
+.buttons .btn:hover {
+    background-color: #1ED760;
+}
+
+input[type="text"], input[type="password"] {
     padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 5px;
+    width: 100%;
 }
-.admin {
-    display: none;
+
+button {
+    background-color: #1DB954;
+    color: white;
+    padding: 10px 20px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
-#login-section, #admin-section {
-    margin-bottom: 20px;
+
+button:hover {
+    background-color: #1ED760;
+}
+
+.team {
+    padding: 10px;
+    margin: 10px 0;
+    background-color: #282828;
+    border-radius: 5px;
+}
+
+#error-message {
+    color: red;
+    margin-top: 10px;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
 }
