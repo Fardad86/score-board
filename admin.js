@@ -1,24 +1,9 @@
-// Import Firebase functions
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
-import { getAuth } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
-import { getFirestore, collection, addDoc, deleteDoc, doc, getDocs, setDoc } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
+import { createClient } from '@supabase/supabase-js';
 
-// Firebase configuration
-const firebaseConfig = {
-    apiKey: "AIzaSyDkfWwCITUJf1qR-3A2KD-xwf87ho98GTc",
-    authDomain: "lig-score-board.firebaseapp.com",
-    projectId: "lig-score-board",
-    storageBucket: "lig-score-board.appspot.com",
-    messagingSenderId: "993583824589",
-    appId: "1:993583824589:web:0f9bb30c2bf766b238f384"
-};
+const supabaseUrl = 'https://pyecsyykgzeionihrhwi.supabase.co';
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InB5ZWNzeXlrZ3plaW9uaWhyaHdpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjQ1MjIzNzMsImV4cCI6MjA0MDA5ODM3M30.oBNxX9Hl-89r_aCrzLJwbkdtdJB-e7rhOmhZd0q9RUc';
+const supabase = createClient(supabaseUrl, supabaseKey);
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getFirestore(app);
-
-// Handle create/update team
 document.addEventListener('DOMContentLoaded', () => {
     const createTeamForm = document.getElementById('create-team-form');
     const deleteTeamForm = document.getElementById('delete-team-form');
@@ -31,10 +16,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const teamStatus = document.getElementById('team-status').value;
 
         try {
-            await setDoc(doc(db, 'teams', teamName), {
-                score: parseInt(teamScore, 10),
-                status: teamStatus
-            });
+            const { error } = await supabase
+                .from('teams')
+                .upsert({ name: teamName, score: parseInt(teamScore, 10), status: teamStatus });
+
+            if (error) throw error;
+
             alert('Team created/updated successfully');
             loadTeams(); // Refresh the team list
         } catch (error) {
@@ -48,7 +35,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const teamName = document.getElementById('delete-team-name').value;
 
         try {
-            await deleteDoc(doc(db, 'teams', teamName));
+            const { error } = await supabase
+                .from('teams')
+                .delete()
+                .eq('name', teamName);
+
+            if (error) throw error;
+
             alert('Team deleted successfully');
             loadTeams(); // Refresh the team list
         } catch (error) {
@@ -62,14 +55,18 @@ document.addEventListener('DOMContentLoaded', () => {
         teamBoard.innerHTML = '';
 
         try {
-            const querySnapshot = await getDocs(collection(db, 'teams'));
-            querySnapshot.forEach((doc) => {
-                const teamData = doc.data();
+            const { data, error } = await supabase
+                .from('teams')
+                .select('*');
+
+            if (error) throw error;
+
+            data.forEach(team => {
                 teamBoard.innerHTML += `
                     <div class="team">
-                        <h4>${doc.id}</h4>
-                        <p>Score: ${teamData.score}</p>
-                        <p>Status: ${teamData.status}</p>
+                        <h4>${team.name}</h4>
+                        <p>Score: ${team.score}</p>
+                        <p>Status: ${team.status}</p>
                     </div>
                 `;
             });
