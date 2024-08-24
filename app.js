@@ -13,8 +13,8 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-firebase.initializeApp(firebaseConfig);
-const db = firebase.firestore();
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
 
 // Admin login logic
 document.addEventListener('DOMContentLoaded', () => {
