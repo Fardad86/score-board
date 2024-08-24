@@ -1,79 +1,95 @@
 body {
-    font-family: 'Arial', sans-serif;
-    background-color: #121212;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #1DB954, #121212);
     color: #ffffff;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
     margin: 0;
+    overflow: hidden;
 }
 
 .container {
     text-align: center;
-    padding: 20px;
-    border: 2px solid #1DB954;
-    border-radius: 10px;
-    background-color: #1A1A1A;
-    box-shadow: 0px 0px 15px rgba(0, 255, 0, 0.2);
-    animation: fadeIn 1s ease-in-out;
+    padding: 40px;
+    border-radius: 15px;
+    background: rgba(0, 0, 0, 0.7);
+    box-shadow: 0px 0px 20px rgba(0, 255, 0, 0.5);
+    animation: slideIn 1s ease-in-out forwards;
+    max-width: 90%;
+    width: 400px;
 }
 
 h1, h2 {
     color: #1DB954;
+    margin-bottom: 30px;
+    animation: fadeIn 1.2s ease-in-out forwards;
 }
 
-.buttons .btn {
+.buttons .btn, button {
     background-color: #1DB954;
     color: #fff;
-    padding: 10px 20px;
-    margin: 10px;
-    border-radius: 5px;
+    padding: 12px 25px;
+    margin: 10px 0;
+    border-radius: 25px;
     text-decoration: none;
     display: inline-block;
-    transition: background-color 0.3s ease;
+    transition: all 0.4s ease;
+    font-size: 1rem;
+    box-shadow: 0px 4px 15px rgba(0, 255, 0, 0.2);
 }
 
-.buttons .btn:hover {
+.buttons .btn:hover, button:hover {
     background-color: #1ED760;
+    transform: translateY(-5px);
+    box-shadow: 0px 6px 20px rgba(0, 255, 0, 0.4);
 }
 
 input[type="text"], input[type="password"] {
-    padding: 10px;
+    padding: 15px;
     margin: 10px 0;
     border: none;
-    border-radius: 5px;
+    border-radius: 25px;
     width: 100%;
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    text-align: center;
+    font-size: 1rem;
+    transition: background 0.3s ease;
 }
 
-button {
-    background-color: #1DB954;
-    color: white;
-    padding: 10px 20px;
-    margin-top: 10px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-button:hover {
-    background-color: #1ED760;
+input[type="text"]:focus, input[type="password"]:focus {
+    background: rgba(255, 255, 255, 0.2);
+    outline: none;
 }
 
 .team {
-    padding: 10px;
-    margin: 10px 0;
+    padding: 15px;
+    margin: 15px 0;
     background-color: #282828;
-    border-radius: 5px;
+    border-radius: 15px;
+    box-shadow: 0px 3px 10px rgba(0, 255, 0, 0.2);
+    animation: fadeInUp 1.2s ease-in-out forwards;
 }
 
 #error-message {
     color: red;
-    margin-top: 10px;
+    margin-top: 20px;
+    font-size: 0.9rem;
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; transform: scale(0.9); }
-    to { opacity: 1; transform: scale(1); }
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideIn {
+    from { transform: translateY(-100px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes fadeInUp {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
 }
