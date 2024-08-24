@@ -1,9 +1,7 @@
-// Import Supabase functions
-import { createClient } from '@supabase/supabase-js';
+import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
 
-// Supabase configuration
-const supabaseUrl = 'https://pyecsyykgzeionihrhwi.supabase.co';
-const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InB5ZWNzeXlrZ3plaW9uaWhyaHdpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjQ1MjIzNzMsImV4cCI6MjA0MDA5ODM3M30.oBNxX9Hl-89r_aCrzLJwbkdtdJB-e7rhOmhZd0q9RUc';
+const supabaseUrl = 'https://your-project-id.supabase.co'; // Replace with your Supabase URL
+const supabaseKey = 'your-public-anon-key'; // Replace with your Supabase Key
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 // Handle form submissions
@@ -11,82 +9,93 @@ document.addEventListener('DOMContentLoaded', () => {
     const createTeamForm = document.getElementById('create-team-form');
     const updateTeamForm = document.getElementById('update-team-form');
     const deleteTeamForm = document.getElementById('delete-team-form');
-
-    // Create team
-    createTeamForm.addEventListener('submit', async (event) => {
+    
+    // Create Team
+    createTeamForm.addEventListener('submit', async function(event) {
         event.preventDefault();
         const teamName = document.getElementById('create-team-name').value;
 
-        const { data, error } = await supabase
-            .from('teams')
-            .insert([{ name: teamName, score: 0, status: '' }]);
-
-        if (error) {
-            console.error('Error creating team:', error);
-        } else {
+        try {
+            const { error } = await supabase.from('teams').insert([{ name: teamName, score: 0, status: '' }]);
+            if (error) throw error;
             alert('Team created successfully');
-            loadTeams(); // Refresh the team list
+            loadTeams(); // Refresh the list
+        } catch (error) {
+            console.error('Error creating team:', error);
         }
     });
 
-    // Update team
-    updateTeamForm.addEventListener('submit', async (event) => {
+    // Update Team
+    updateTeamForm.addEventListener('submit', async function(event) {
         event.preventDefault();
         const teamName = document.getElementById('update-team-name').value;
         const teamScore = parseInt(document.getElementById('update-team-score').value, 10);
         const teamStatus = document.getElementById('update-team-status').value;
 
-        const { data, error } = await supabase
-            .from('teams')
-            .upsert([{ name: teamName, score: teamScore, status: teamStatus }]);
-
-        if (error) {
-            console.error('Error updating team:', error);
-        } else {
+        try {
+            const { data, error } = await supabase
+                .from('teams')
+                .update({ score: teamScore + (await getCurrentScore(teamName)), status: teamStatus })
+                .eq('name', teamName);
+            if (error) throw error;
             alert('Team updated successfully');
-            loadTeams(); // Refresh the team list
+            loadTeams(); // Refresh the list
+        } catch (error) {
+            console.error('Error updating team:', error);
         }
     });
 
-    // Delete team
-    deleteTeamForm.addEventListener('submit', async (event) => {
+    // Delete Team
+    deleteTeamForm.addEventListener('submit', async function(event) {
         event.preventDefault();
         const teamName = document.getElementById('delete-team-name').value;
 
-        const { data, error } = await supabase
-            .from('teams')
-            .delete()
-            .eq('name', teamName);
-
-        if (error) {
-            console.error('Error deleting team:', error);
-        } else {
+        try {
+            const { error } = await supabase.from('teams').delete().eq('name', teamName);
+            if (error) throw error;
             alert('Team deleted successfully');
-            loadTeams(); // Refresh the team list
+            loadTeams(); // Refresh the list
+        } catch (error) {
+            console.error('Error deleting team:', error);
         }
     });
 
-    // Load teams and display them
+    // Load Teams
     async function loadTeams() {
-        const teamBoard = document.getElementById('team-board');
-        teamBoard.innerHTML = '';
+        const teamSelect = document.getElementById('update-team-name');
+        const deleteTeamSelect = document.getElementById('delete-team-name');
 
-        const { data, error } = await supabase
-            .from('teams')
-            .select('*');
+        try {
+            const { data: teams, error } = await supabase.from('teams').select('*');
+            if (error) throw error;
 
-        if (error) {
-            console.error('Error loading teams:', error);
-        } else {
-            data.forEach((team) => {
-                teamBoard.innerHTML += `
-                    <div class="team">
-                        <h4>${team.name}</h4>
-                        <p>Score: ${team.score}</p>
-                        <p>Status: ${team.status}</p>
-                    </div>
-                `;
+            teamSelect.innerHTML = '';
+            deleteTeamSelect.innerHTML = '';
+
+            teams.forEach(team => {
+                const option = document.createElement('option');
+                option.value = team.name;
+                option.text = team.name;
+                teamSelect.appendChild(option);
+                deleteTeamSelect.appendChild(option.cloneNode(true));
             });
+        } catch (error) {
+            console.error('Error loading teams:', error);
+        }
+    }
+
+    async function getCurrentScore(teamName) {
+        try {
+            const { data: [team], error } = await supabase
+                .from('teams')
+                .select('score')
+                .eq('name', teamName)
+                .single();
+            if (error) throw error;
+            return team ? team.score : 0;
+        } catch (error) {
+            console.error('Error fetching current score:', error);
+            return 0;
         }
     }
 
