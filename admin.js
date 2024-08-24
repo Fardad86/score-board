@@ -1,7 +1,7 @@
 // Import Firebase functions
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
 import { getAuth } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
-import { getFirestore, collection, addDoc, deleteDoc, doc, getDocs, updateDoc } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
+import { getFirestore, collection, addDoc, deleteDoc, doc, getDocs, setDoc } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
 
 // Firebase configuration
 const firebaseConfig = {
@@ -31,9 +31,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const teamStatus = document.getElementById('team-status').value;
 
         try {
-            const teamRef = doc(db, 'teams', teamName);
-            await updateDoc(teamRef, {
-                score: teamScore,
+            // Use setDoc to create or update a document
+            await setDoc(doc(db, 'teams', teamName), {
+                score: parseInt(teamScore, 10),
                 status: teamStatus
             });
             alert('Team created/updated successfully');
@@ -49,8 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const teamName = document.getElementById('delete-team-name').value;
 
         try {
-            const teamRef = doc(db, 'teams', teamName);
-            await deleteDoc(teamRef);
+            await deleteDoc(doc(db, 'teams', teamName));
             alert('Team deleted successfully');
             loadTeams(); // Refresh the team list
         } catch (error) {
