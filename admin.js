@@ -1,9 +1,11 @@
 import { createClient } from '@supabase/supabase-js';
 
+// Supabase configuration
 const supabaseUrl = 'https://pyecsyykgzeionihrhwi.supabase.co';
 const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InB5ZWNzeXlrZ3plaW9uaWhyaHdpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjQ1MjIzNzMsImV4cCI6MjA0MDA5ODM3M30.oBNxX9Hl-89r_aCrzLJwbkdtdJB-e7rhOmhZd0q9RUc';
 const supabase = createClient(supabaseUrl, supabaseKey);
 
+// Handle admin actions
 document.addEventListener('DOMContentLoaded', () => {
     const createTeamForm = document.getElementById('create-team-form');
     const deleteTeamForm = document.getElementById('delete-team-form');
@@ -18,9 +20,15 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             const { error } = await supabase
                 .from('teams')
-                .upsert({ name: teamName, score: parseInt(teamScore, 10), status: teamStatus });
+                .upsert({
+                    name: teamName,
+                    score: parseInt(teamScore, 10),
+                    status: teamStatus
+                });
 
-            if (error) throw error;
+            if (error) {
+                throw error;
+            }
 
             alert('Team created/updated successfully');
             loadTeams(); // Refresh the team list
@@ -40,7 +48,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 .delete()
                 .eq('name', teamName);
 
-            if (error) throw error;
+            if (error) {
+                throw error;
+            }
 
             alert('Team deleted successfully');
             loadTeams(); // Refresh the team list
@@ -55,13 +65,15 @@ document.addEventListener('DOMContentLoaded', () => {
         teamBoard.innerHTML = '';
 
         try {
-            const { data, error } = await supabase
+            const { data: teams, error } = await supabase
                 .from('teams')
                 .select('*');
 
-            if (error) throw error;
+            if (error) {
+                throw error;
+            }
 
-            data.forEach(team => {
+            teams.forEach((team) => {
                 teamBoard.innerHTML += `
                     <div class="team">
                         <h4>${team.name}</h4>
