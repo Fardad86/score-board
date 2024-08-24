@@ -8,13 +8,20 @@
 </head>
 <body>
     <div class="container">
-        <h2>Admin Login</h2>
-        <form id="login-form">
-            <input type="email" id="username" placeholder="Username" required>
-            <input type="password" id="password" placeholder="Password" required>
-            <button type="submit" class="btn">Login</button>
-        </form>
-        <div id="error-message" style="color: red;"></div>
+        <header>
+            <h2>Admin Login</h2>
+        </header>
+        <main>
+            <form id="login-form" class="form">
+                <input type="email" id="username" placeholder="Username" required>
+                <input type="password" id="password" placeholder="Password" required>
+                <button type="submit" class="btn">Login</button>
+                <div id="error-message" class="error-message"></div>
+            </form>
+        </main>
+        <footer>
+            <p>&copy; 2024 Score Board</p>
+        </footer>
     </div>
     <script type="module" src="app.js"></script>
 </body>
