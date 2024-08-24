@@ -5,44 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Panel</title>
     <link rel="stylesheet" href="style.css">
+    <!-- Supabase SDK -->
     <script type="module" src="admin.js"></script>
 </head>
 <body>
     <div class="container">
         <h2>Admin Panel</h2>
-        
-        <!-- Create Team -->
-        <div id="create-team-section">
+        <div id="admin-actions">
             <h3>Create Team</h3>
             <form id="create-team-form">
                 <input type="text" id="create-team-name" placeholder="Team Name" required>
                 <button type="submit" class="btn">Create Team</button>
             </form>
-        </div>
-        
-        <!-- Update Team -->
-        <div id="update-team-section">
             <h3>Update Team</h3>
             <form id="update-team-form">
                 <select id="update-team-name" required></select>
-                <input type="number" id="update-team-score" placeholder="Score" required>
-                <input type="text" id="update-team-status" placeholder="Status">
+                <input type="number" id="update-team-score" placeholder="Add Score" required>
+                <textarea id="update-team-status" placeholder="Status"></textarea>
                 <button type="submit" class="btn">Update Team</button>
             </form>
-        </div>
-        
-        <!-- Delete Team -->
-        <div id="delete-team-section">
             <h3>Delete Team</h3>
             <form id="delete-team-form">
                 <select id="delete-team-name" required></select>
                 <button type="submit" class="btn">Delete Team</button>
             </form>
         </div>
-        
-        <!-- Team Board -->
-        <h3>Team Board</h3>
-        <div id="team-board"></div>
     </div>
 </body>
 </html>
