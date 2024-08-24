@@ -13,7 +13,6 @@ document.addEventListener('DOMContentLoaded', () => {
         scoreBoard.innerHTML = '';
 
         try {
-            // درخواست به Supabase برای دریافت داده‌ها
             const { data, error } = await supabase
                 .from('teams')
                 .select('*');
