@@ -20,16 +20,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (error) throw error;
 
-            // نمایش داده‌ها در صفحه
-            data.forEach((team) => {
-                scoreBoard.innerHTML += `
-                    <div class="team">
-                        <h4>${team.name}</h4>
-                        <p>Score: ${team.score}</p>
-                        <p>Status: ${team.status}</p>
-                    </div>
-                `;
-            });
+            // نمایش داده‌ها در جدول
+            scoreBoard.innerHTML = `
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Team Name</th>
+                            <th>Score</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${data.map(team => `
+                            <tr>
+                                <td>${team.name}</td>
+                                <td>${team.score}</td>
+                                <td>${team.status}</td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            `;
         } catch (error) {
             console.error("Error loading teams: ", error);
         }
