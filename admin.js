@@ -31,7 +31,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const teamStatus = document.getElementById('team-status').value;
 
         try {
-            // Use setDoc to create or update a document
             await setDoc(doc(db, 'teams', teamName), {
                 score: parseInt(teamScore, 10),
                 status: teamStatus
