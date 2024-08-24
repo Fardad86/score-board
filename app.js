@@ -27,13 +27,13 @@ document.addEventListener('DOMContentLoaded', () => {
             const password = document.getElementById('password').value;
         
             try {
-                // Assuming you have set up Firebase Authentication for email/password sign-in
+                // Sign in with email and password
                 await signInWithEmailAndPassword(auth, username, password);
                 // Redirect to admin page on successful login
                 window.location.href = 'admin.html';
             } catch (error) {
                 // Display error message
-                document.getElementById('error-message').innerText = 'Invalid login credentials';
+                document.getElementById('error-message').innerText = error.message;
             }
         });
     }
