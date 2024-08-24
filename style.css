@@ -1,95 +1,64 @@
 body {
-    font-family: 'Poppins', sans-serif;
-    background: linear-gradient(135deg, #1DB954, #121212);
-    color: #ffffff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
     margin: 0;
-    overflow: hidden;
+    padding: 0;
 }
 
 .container {
+    width: 80%;
+    margin: auto;
+    overflow: hidden;
+}
+
+h2, h3 {
+    color: #333;
     text-align: center;
-    padding: 40px;
-    border-radius: 15px;
-    background: rgba(0, 0, 0, 0.7);
-    box-shadow: 0px 0px 20px rgba(0, 255, 0, 0.5);
-    animation: slideIn 1s ease-in-out forwards;
-    max-width: 90%;
-    width: 400px;
 }
 
-h1, h2 {
-    color: #1DB954;
-    margin-bottom: 30px;
-    animation: fadeIn 1.2s ease-in-out forwards;
+form {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
 }
 
-.buttons .btn, button {
-    background-color: #1DB954;
-    color: #fff;
-    padding: 12px 25px;
+input[type="text"], input[type="email"], input[type="number"], textarea {
+    width: 100%;
+    padding: 10px;
     margin: 10px 0;
-    border-radius: 25px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+button.btn {
+    background-color: #4CAF50; /* Green */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
     text-decoration: none;
     display: inline-block;
-    transition: all 0.4s ease;
-    font-size: 1rem;
-    box-shadow: 0px 4px 15px rgba(0, 255, 0, 0.2);
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 4px;
 }
 
-.buttons .btn:hover, button:hover {
-    background-color: #1ED760;
-    transform: translateY(-5px);
-    box-shadow: 0px 6px 20px rgba(0, 255, 0, 0.4);
+button.btn:hover {
+    background-color: #45a049;
 }
 
-input[type="text"], input[type="password"] {
-    padding: 15px;
-    margin: 10px 0;
-    border: none;
-    border-radius: 25px;
-    width: 100%;
-    background: rgba(255, 255, 255, 0.1);
-    color: #fff;
-    text-align: center;
-    font-size: 1rem;
-    transition: background 0.3s ease;
-}
-
-input[type="text"]:focus, input[type="password"]:focus {
-    background: rgba(255, 255, 255, 0.2);
-    outline: none;
+#team-board {
+    margin-top: 20px;
 }
 
 .team {
-    padding: 15px;
-    margin: 15px 0;
-    background-color: #282828;
-    border-radius: 15px;
-    box-shadow: 0px 3px 10px rgba(0, 255, 0, 0.2);
-    animation: fadeInUp 1.2s ease-in-out forwards;
-}
-
-#error-message {
-    color: red;
-    margin-top: 20px;
-    font-size: 0.9rem;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-
-@keyframes slideIn {
-    from { transform: translateY(-100px); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
-}
-
-@keyframes fadeInUp {
-    from { transform: translateY(20px); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
+    background: #fff;
+    padding: 10px;
+    border-radius: 8px;
+    margin: 10px 0;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }
