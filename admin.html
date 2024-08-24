@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Panel</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.11.0/dist/supabase.min.js"></script>
 </head>
 <body>
     <div class="container">
@@ -15,22 +16,25 @@
                 <input type="text" id="create-team-name" placeholder="Team Name" required>
                 <button type="submit" class="btn">Create Team</button>
             </form>
+
             <h3>Update Team</h3>
             <form id="update-team-form">
                 <select id="update-team-select" required></select>
-                <input type="number" id="update-team-score" placeholder="Add Score" min="0">
-                <textarea id="update-team-status" placeholder="Status (optional)"></textarea>
+                <input type="number" id="update-team-score" placeholder="Score" value="0">
+                <textarea id="update-team-status" placeholder="Status"></textarea>
                 <button type="submit" class="btn">Update Team</button>
             </form>
+
             <h3>Delete Team</h3>
             <form id="delete-team-form">
                 <select id="delete-team-select" required></select>
                 <button type="submit" class="btn">Delete Team</button>
             </form>
         </div>
+
         <h3>Team Board</h3>
         <div id="team-board"></div>
     </div>
-    <script type="module" src="admin.js"></script>
+    <script src="admin.js"></script>
 </body>
 </html>
