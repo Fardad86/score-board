@@ -1,7 +1,7 @@
-/* سبک کلی برای صفحه */
+/* رنگ پس‌زمینه عمومی */
 body {
     font-family: Arial, sans-serif;
-    background: linear-gradient(135deg, #f3f3f3, #e2e2e2);
+    background: linear-gradient(135deg, #f9f9f9, #e2e2e2);
     margin: 0;
     padding: 0;
     display: flex;
@@ -10,63 +10,96 @@ body {
     height: 100vh;
 }
 
-/* سبک کلی برای کانتینر */
+/* استایل کانتینر */
 .container {
-    background: #fff;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
     padding: 20px;
     width: 90%;
-    max-width: 800px;
-    overflow: hidden;
+    max-width: 900px;
 }
 
 /* دکمه‌ها */
 .btn {
-    background: #007bff;
+    background: #4CAF50;
     color: #fff;
     border: none;
-    border-radius: 5px;
-    padding: 10px 20px;
+    border-radius: 8px;
+    padding: 12px 24px;
     cursor: pointer;
-    transition: background 0.3s ease;
+    transition: background 0.3s, box-shadow 0.3s;
 }
 
 .btn:hover {
-    background: #0056b3;
+    background: #45a049;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-/* استایل برای جدول اسکوربورد */
-.scoreboard {
+/* استایل برای فرم‌ها */
+form {
     margin-top: 20px;
-    overflow-x: auto; /* برای فعال کردن اسکرول افقی */
 }
 
-table {
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+input[type="text"],
+input[type="number"],
+textarea,
+select {
     width: 100%;
-    border-collapse: collapse;
-}
-
-thead {
-    background: #007bff;
-    color: #fff;
-}
-
-th, td {
-    border: 1px solid #ddd;
     padding: 10px;
-    text-align: left;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    font-size: 16px;
+    transition: border-color 0.3s;
 }
 
-tbody tr:nth-child(even) {
-    background: #f2f2f2;
+input[type="text"]:focus,
+input[type="number"]:focus,
+textarea:focus,
+select:focus {
+    border-color: #4CAF50;
+    outline: none;
 }
 
-tbody tr:hover {
-    background: #ddd;
+/* استایل برای لیست تیم‌ها */
+#team-list {
+    margin-top: 20px;
 }
 
-table th {
-    position: sticky;
-    top: 0; /* ثابت بودن هدر جدول */
+.team-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    background: #f9f9f9;
+    transition: background 0.3s, box-shadow 0.3s;
+}
+
+.team-item:hover {
+    background: #e2e2e2;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.team-item button {
+    background: #d9534f;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 16px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.team-item button:hover {
+    background: #c9302c;
 }
