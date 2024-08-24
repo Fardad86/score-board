@@ -12,19 +12,19 @@
         <div id="admin-actions">
             <h3>Create or Update Team</h3>
             <form id="create-team-form">
+                <label for="team-name">Select Team</label>
+                <select id="team-select" required>
+                    <option value="">Select a team</option>
+                </select>
                 <input type="text" id="team-name" placeholder="Team Name" required>
                 <input type="number" id="team-score" placeholder="Score" required>
                 <textarea id="team-status" placeholder="Status"></textarea>
                 <button type="submit" class="btn">Create/Update Team</button>
             </form>
+
             <h3>Delete Team</h3>
-            <form id="delete-team-form">
-                <input type="text" id="delete-team-name" placeholder="Team Name" required>
-                <button type="submit" class="btn">Delete Team</button>
-            </form>
+            <div id="team-list"></div>
         </div>
-        <h3>Team Board</h3>
-        <div id="team-board"></div>
     </div>
     <script type="module" src="admin.js"></script>
 </body>
