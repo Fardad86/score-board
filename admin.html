@@ -9,42 +9,25 @@
 <body>
     <div class="container">
         <h2>Admin Panel</h2>
-
-        <!-- Create Team Form -->
-        <div id="create-team-section">
+        <div id="admin-actions">
             <h3>Create Team</h3>
             <form id="create-team-form">
                 <input type="text" id="create-team-name" placeholder="Team Name" required>
                 <button type="submit" class="btn">Create Team</button>
             </form>
-        </div>
-
-        <!-- Update Team Form -->
-        <div id="update-team-section">
             <h3>Update Team</h3>
             <form id="update-team-form">
-                <label for="update-team-select">Select Team</label>
-                <select id="update-team-select" required>
-                    <option value="">Select a team</option>
-                </select>
-                <input type="number" id="update-team-score" placeholder="Add Score" value="0">
+                <select id="update-team-select" required></select>
+                <input type="number" id="update-team-score" placeholder="Add Score" min="0">
                 <textarea id="update-team-status" placeholder="Status (optional)"></textarea>
                 <button type="submit" class="btn">Update Team</button>
             </form>
-        </div>
-
-        <!-- Delete Team Form -->
-        <div id="delete-team-section">
             <h3>Delete Team</h3>
             <form id="delete-team-form">
-                <label for="delete-team-select">Select Team</label>
-                <select id="delete-team-select" required>
-                    <option value="">Select a team</option>
-                </select>
+                <select id="delete-team-select" required></select>
                 <button type="submit" class="btn">Delete Team</button>
             </form>
         </div>
-
         <h3>Team Board</h3>
         <div id="team-board"></div>
     </div>
