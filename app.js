@@ -21,20 +21,22 @@ document.addEventListener('DOMContentLoaded', () => {
     const loginForm = document.getElementById('login-form');
     
     if (loginForm) {
-        loginForm.addEventListener('submit', function(event) {
+        loginForm.addEventListener('submit', async function(event) {
             event.preventDefault();
             const username = document.getElementById('username').value;
             const password = document.getElementById('password').value;
         
-            if (username === 'admin' && password === 'admin0912') {
+            try {
+                // Assuming you have set up Firebase Authentication for email/password sign-in
+                await signInWithEmailAndPassword(auth, username, password);
+                // Redirect to admin page on successful login
                 window.location.href = 'admin.html';
-            } else {
+            } catch (error) {
+                // Display error message
                 document.getElementById('error-message').innerText = 'Invalid login credentials';
             }
         });
     }
-
-    loadTeams();
 });
 
 // Logic for adding and managing teams
