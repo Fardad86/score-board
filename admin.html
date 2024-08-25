@@ -10,12 +10,14 @@
 </head>
 <body>
     <div class="container">
+        <!-- بخش ساخت تیم -->
         <h2>Create Team</h2>
         <form id="create-team-form">
             <input type="text" id="team-name" placeholder="Team Name" required>
             <button type="submit">Create Team</button>
         </form>
 
+        <!-- بخش آپدیت تیم -->
         <h2>Update Team</h2>
         <form id="update-team-form">
             <select id="update-team-name"></select>
@@ -24,11 +26,27 @@
             <button type="submit">Update Team</button>
         </form>
 
+        <!-- بخش حذف تیم -->
         <h2>Delete Team</h2>
         <form id="delete-team-form">
             <select id="delete-team-name"></select>
             <button type="submit">Delete Team</button>
         </form>
+
+        <!-- بخش تیم بورد -->
+        <h2>Team Board</h2>
+        <table id="team-board">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Score</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody id="team-board-body">
+                <!-- تیم‌ها اینجا نمایش داده می‌شوند -->
+            </tbody>
+        </table>
     </div>
 </body>
 </html>
