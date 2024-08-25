@@ -6,7 +6,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const refreshButton = document.getElementById('refresh-btn');
     const scoreBoardBody = document.querySelector('#score-board tbody');
 
-    // Function to load and display teams
     async function loadTeams() {
         const { data, error } = await supabase
             .from('teams')
@@ -20,7 +19,6 @@ document.addEventListener('DOMContentLoaded', function() {
         updateScoreBoard(data);
     }
 
-    // Function to update the scoreboard table
     function updateScoreBoard(teams) {
         scoreBoardBody.innerHTML = '';
         teams.forEach(team => {
@@ -42,9 +40,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Event listener for the refresh button
     refreshButton.addEventListener('click', loadTeams);
 
-    // Initial load of teams when the page loads
     loadTeams();
 });
