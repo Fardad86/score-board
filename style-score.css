@@ -1,80 +1,115 @@
-/* Background and Container Styles */
+/* General Styles */
 body {
-    background: linear-gradient(135deg, rgba(173, 216, 230, 0.5), rgba(144, 238, 144, 0.5)); /* Light blue and green gradient */
     margin: 0;
     font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, rgba(173, 216, 230, 0.5), rgba(144, 238, 144, 0.5));
+    color: #333;
 }
 
+/* Container */
 .container {
-    max-width: 1200px;
+    width: 80%;
     margin: 20px auto;
     padding: 20px;
     background: rgba(255, 255, 255, 0.6); /* White background with 60% opacity */
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border: 2px solid #87CEFA; /* Light blue border */
 }
 
-h2 {
-    color: #333;
+/* Header */
+h2, h3 {
+    color: #1E90FF; /* Bright blue color */
+}
+
+/* Button */
+button {
+    background: #1E90FF; /* Bright blue background */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background 0.3s ease;
+}
+
+button:hover {
+    background: #4682B4; /* Darker blue on hover */
+}
+
+/* Form */
+form {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin: 10px 0 5px;
+    color: #4682B4; /* Darker blue for labels */
+}
+
+input[type="number"], input[type="text"], select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #87CEFA; /* Light blue border */
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+input[type="number"]:focus, input[type="text"]:focus, select:focus {
+    border-color: #1E90FF; /* Bright blue focus border */
 }
 
 /* Table Styles */
-.score-table {
+#score-board {
+    margin-top: 20px;
+    overflow-x: auto; /* Enable horizontal scroll */
+}
+
+table {
     width: 100%;
-    border-collapse: collapse;
-    margin: 20px 0;
+    border-collapse: collapse; /* Ensure borders are collapsed */
+    margin: 0 auto; /* Center the table */
+    background: rgba(255, 255, 255, 0.9); /* Slightly less transparent white */
+    border: 2px solid #87CEFA; /* Light blue border */
+    border-radius: 5px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.score-table th, .score-table td {
+th, td {
     padding: 10px;
     text-align: left;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid #ddd; /* Light gray bottom border */
 }
 
-.score-table th {
-    background-color: #f4f4f4;
-    color: #333;
-    font-weight: bold;
+th {
+    background: #87CEFA; /* Light blue background for header */
+    color: #fff;
 }
 
-.score-table tr:hover {
-    background-color: #f1f1f1;
+tr:hover {
+    background: #f2f2f2; /* Light gray background on hover */
 }
 
-.score-table td {
-    background-color: #fff;
-    border: 1px solid #ddd;
+tr:nth-child(even) {
+    background: #f9f9f9; /* Light gray background for even rows */
 }
 
-.score-table tr:nth-child(even) {
-    background-color: #f9f9f9;
+tr:nth-child(odd) {
+    background: #fff; /* White background for odd rows */
 }
 
-/* Button Styles */
-.btn {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 4px;
-    background-color: #4CAF50; /* Green color */
-    color: white;
-    font-size: 16px;
-    cursor: pointer;
+/* Team Highlight */
+.team.highlight {
+    border-color: #1E90FF; /* Highlight with bright blue border */
+    font-weight: bold; /* Make text bold */
+    animation: highlightAnimation 1s ease infinite; /* Add animation for highlight */
 }
 
-.btn:hover {
-    background-color: #45a049; /* Darker green */
-}
-
-/* Input Styles */
-input[type="text"], input[type="number"], select {
-    width: 100%; /* Full width within its container */
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box; /* Ensure padding and border are included in the element's total width */
-}
-
-body {
-    overflow-x: hidden; /* Prevent horizontal scroll on body */
+/* Animation for the team with higher score */
+@keyframes highlightAnimation {
+    0% { background-color: rgba(255, 255, 255, 0.8); }
+    50% { background-color: rgba(173, 216, 230, 0.5); }
+    100% { background-color: rgba(255, 255, 255, 0.8); }
 }
