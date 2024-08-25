@@ -32,12 +32,15 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         function updateScoreBoard(teams) {
+            console.log('Updating scoreboard with:', teams); // Log the data to be updated
+
+            scoreBoardBody.innerHTML = ''; // Clear the existing rows
+
             if (!teams || teams.length === 0) {
                 scoreBoardBody.innerHTML = '<tr><td colspan="3">No teams found</td></tr>';
                 return;
             }
 
-            scoreBoardBody.innerHTML = '';
             teams.forEach(team => {
                 const row = document.createElement('tr');
 
