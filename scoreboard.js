@@ -54,3 +54,4 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initial load
     refreshButton.click();
 });
+ 
