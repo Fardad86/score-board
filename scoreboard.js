@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // بارگذاری Supabase از CDN
     const script = document.createElement('script');
-    script.src = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.0.0/dist/supabase.min.js';
+    script.src = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.0.2/dist/supabase.min.js';
     script.onload = function() {
         const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
 
