@@ -1,18 +1,44 @@
-/* style-mentor.css */
+/* General Styles */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, rgba(173, 216, 230, 0.5), rgba(144, 238, 144, 0.5));
+    color: #333;
+}
 
-/* General container styling */
+/* Container */
 .container {
     width: 80%;
-    margin: 0 auto;
+    margin: 20px auto;
     padding: 20px;
-    font-family: Arial, sans-serif;
+    background: rgba(255, 255, 255, 0.6); /* White background with 60% opacity */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border: 2px solid #87CEFA; /* Light blue border */
 }
 
-h2 {
-    text-align: center;
+/* Header */
+h2, h3 {
+    color: #1E90FF; /* Bright blue color */
 }
 
-/* Form styling */
+/* Button */
+button {
+    background: #1E90FF; /* Bright blue background */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background 0.3s ease;
+}
+
+button:hover {
+    background: #4682B4; /* Darker blue on hover */
+}
+
+/* Form */
 form {
     margin-bottom: 20px;
 }
@@ -20,46 +46,55 @@ form {
 label {
     display: block;
     margin: 10px 0 5px;
+    color: #4682B4; /* Darker blue for labels */
 }
 
-input, select {
+input[type="number"], input[type="text"], select {
     width: 100%;
     padding: 10px;
+    border: 1px solid #87CEFA; /* Light blue border */
+    border-radius: 5px;
     margin-bottom: 10px;
 }
 
-button {
-    padding: 10px 15px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+input[type="number"]:focus, input[type="text"]:focus, select:focus {
+    border-color: #1E90FF; /* Bright blue focus border */
 }
 
-button:hover {
-    background-color: #45a049;
-}
-
-/* Table styling */
+/* Table Styles */
 #score-board {
-    display: flex;
-    flex-direction: column;
+    margin-top: 20px;
 }
 
 .team {
-    border: 1px solid #ddd;
+    background: rgba(255, 255, 255, 0.8); /* White background with slight opacity */
+    border: 2px solid #32CD32; /* Light green border */
     border-radius: 5px;
-    padding: 10px;
+    padding: 15px;
     margin-bottom: 10px;
-    transition: background-color 0.3s, box-shadow 0.3s;
-}
-
-.team:hover {
-    background-color: #f5f5f5;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+.team:nth-child(odd) {
+    background: rgba(255, 255, 255, 0.9); /* Slightly less transparent for odd rows */
+}
+
 .team strong {
-    color: #333;
+    color: #1E90FF; /* Bright blue color for labels inside team div */
+}
+
+.team.highlight {
+    border-color: #1E90FF; /* Highlight with bright blue border */
+    font-weight: bold; /* Make text bold */
+}
+
+/* Animation for the team with higher score */
+@keyframes highlightAnimation {
+    0% { background-color: rgba(255, 255, 255, 0.8); }
+    50% { background-color: rgba(173, 216, 230, 0.5); }
+    100% { background-color: rgba(255, 255, 255, 0.8); }
+}
+
+.team.highlight {
+    animation: highlightAnimation 1s ease infinite;
 }
