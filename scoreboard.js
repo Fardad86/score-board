@@ -1,4 +1,9 @@
 document.addEventListener('DOMContentLoaded', function() {
+    // Initialize Supabase client
+    const supabaseUrl = 'https://your-project-id.supabase.co';
+    const supabaseKey = 'your-public-api-key';
+    const supabase = Supabase.createClient(supabaseUrl, supabaseKey);
+
     const refreshButton = document.getElementById('refresh-btn');
     const scoreBoard = document.getElementById('score-board');
 
