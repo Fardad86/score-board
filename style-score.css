@@ -64,28 +64,47 @@ input[type="number"]:focus, input[type="text"]:focus, select:focus {
 /* Table Styles */
 #score-board {
     margin-top: 20px;
+    overflow-x: auto; /* Enable horizontal scroll */
 }
 
-.team {
-    background: rgba(255, 255, 255, 0.8); /* White background with slight opacity */
-    border: 2px solid #32CD32; /* Light green border */
+table {
+    width: 100%;
+    border-collapse: collapse; /* Ensure borders are collapsed */
+    margin: 0 auto; /* Center the table */
+    background: rgba(255, 255, 255, 0.9); /* Slightly less transparent white */
+    border: 2px solid #87CEFA; /* Light blue border */
     border-radius: 5px;
-    padding: 15px;
-    margin-bottom: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.team:nth-child(odd) {
-    background: rgba(255, 255, 255, 0.9); /* Slightly less transparent for odd rows */
+th, td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd; /* Light gray bottom border */
 }
 
-.team strong {
-    color: #1E90FF; /* Bright blue color for labels inside team div */
+th {
+    background: #87CEFA; /* Light blue background for header */
+    color: #fff;
 }
 
+tr:hover {
+    background: #f2f2f2; /* Light gray background on hover */
+}
+
+tr:nth-child(even) {
+    background: #f9f9f9; /* Light gray background for even rows */
+}
+
+tr:nth-child(odd) {
+    background: #fff; /* White background for odd rows */
+}
+
+/* Team Highlight */
 .team.highlight {
     border-color: #1E90FF; /* Highlight with bright blue border */
     font-weight: bold; /* Make text bold */
+    animation: highlightAnimation 1s ease infinite; /* Add animation for highlight */
 }
 
 /* Animation for the team with higher score */
@@ -93,8 +112,4 @@ input[type="number"]:focus, input[type="text"]:focus, select:focus {
     0% { background-color: rgba(255, 255, 255, 0.8); }
     50% { background-color: rgba(173, 216, 230, 0.5); }
     100% { background-color: rgba(255, 255, 255, 0.8); }
-}
-
-.team.highlight {
-    animation: highlightAnimation 1s ease infinite;
 }
