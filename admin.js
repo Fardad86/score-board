@@ -2,6 +2,47 @@ const supabaseUrl = 'https://pyecsyykgzeionihrhwi.supabase.co';
 const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InB5ZWNzeXlrZ3plaW9uaWhyaHdpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjQ1MjIzNzMsImV4cCI6MjA0MDA5ODM3M30.oBNxX9Hl-89r_aCrzLJwbkdtdJB-e7rhOmhZd0q9RUc';
 const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
 
+// بارگذاری تیم‌ها در تیم بورد
+async function loadTeams() {
+    try {
+        const { data, error } = await supabase
+            .from('teams')
+            .select('*');
+
+        if (error) throw error;
+
+        const updateTeamSelect = document.getElementById('update-team-name');
+        const deleteTeamSelect = document.getElementById('delete-team-name');
+        const teamBoardBody = document.getElementById('team-board-body');
+        updateTeamSelect.innerHTML = '';
+        deleteTeamSelect.innerHTML = '';
+        teamBoardBody.innerHTML = '';
+
+        data.forEach((team) => {
+            const option = document.createElement('option');
+            option.value = team.name;
+            option.textContent = team.name;
+            updateTeamSelect.appendChild(option);
+
+            const deleteOption = document.createElement('option');
+            deleteOption.value = team.name;
+            deleteOption.textContent = team.name;
+            deleteTeamSelect.appendChild(deleteOption);
+
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${team.name}</td>
+                <td>${team.score}</td>
+                <td>${team.status}</td>
+            `;
+            teamBoardBody.appendChild(row);
+        });
+    } catch (error) {
+        console.error('Error loading teams:', error);
+        alert('Failed to load teams.');
+    }
+}
+
 // ساخت تیم جدید
 document.getElementById('create-team-form').addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -20,37 +61,6 @@ document.getElementById('create-team-form').addEventListener('submit', async (e)
         alert('Failed to create team.');
     }
 });
-
-// بارگذاری تیم‌ها در منوی کشویی
-async function loadTeams() {
-    try {
-        const { data, error } = await supabase
-            .from('teams')
-            .select('*');
-
-        if (error) throw error;
-
-        const updateTeamSelect = document.getElementById('update-team-name');
-        const deleteTeamSelect = document.getElementById('delete-team-name');
-        updateTeamSelect.innerHTML = '';
-        deleteTeamSelect.innerHTML = '';
-
-        data.forEach((team) => {
-            const option = document.createElement('option');
-            option.value = team.name;
-            option.textContent = team.name;
-            updateTeamSelect.appendChild(option);
-
-            const deleteOption = document.createElement('option');
-            deleteOption.value = team.name;
-            deleteOption.textContent = team.name;
-            deleteTeamSelect.appendChild(deleteOption);
-        });
-    } catch (error) {
-        console.error('Error loading teams:', error);
-        alert('Failed to load teams.');
-    }
-}
 
 // آپدیت تیم
 document.getElementById('update-team-form').addEventListener('submit', async (e) => {
