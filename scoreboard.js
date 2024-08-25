@@ -1,38 +1,38 @@
-import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
+document.addEventListener('DOMContentLoaded', function() {
+    const refreshButton = document.getElementById('refresh-btn');
+    const scoreBoard = document.getElementById('score-board');
 
-const supabaseUrl = 'https://pyecsyykgzeionihrhwi.supabase.co';
-const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InB5ZWNzeXlrZ3plaW9uaWhyaHdpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjQ1MjIzNzMsImV4cCI6MjA0MDA5ODM3M30.oBNxX9Hl-89r_aCrzLJwbkdtdJB-e7rhOmhZd0q9RUc';
+    if (refreshButton) {
+        refreshButton.addEventListener('click', async function() {
+            try {
+                const { data, error } = await supabase
+                    .from('teams')
+                    .select('*');
 
-const supabase = createClient(supabaseUrl, supabaseKey);
-
-// Function to load teams and display on scoreboard
-async function loadTeams() {
-    const { data, error } = await supabase
-        .from('teams')
-        .select('*');
-
-    if (error) {
-        console.error('Error loading teams:', error);
-        return;
+                if (error) {
+                    console.error('Error loading teams:', error);
+                } else {
+                    updateScoreBoard(data);
+                }
+            } catch (err) {
+                console.error('Error fetching teams:', err);
+            }
+        });
+    } else {
+        console.error('Refresh button not found.');
     }
 
-    const scoreboard = document.getElementById('score-board');
-    scoreboard.innerHTML = '';
-
-    data.forEach(team => {
-        const row = document.createElement('div');
-        row.className = 'score-row';
-        row.innerHTML = `
-            <div class="team-name">${team.name}</div>
-            <div class="team-score">${team.score}</div>
-            <div class="team-status">${team.status}</div>
-        `;
-        scoreboard.appendChild(row);
-    });
-}
-
-// Event listener for refresh button
-document.getElementById('refresh-scoreboard').addEventListener('click', loadTeams);
-
-// Initial load
-loadTeams();
+    function updateScoreBoard(teams) {
+        if (scoreBoard) {
+            scoreBoard.innerHTML = '';
+            teams.forEach(team => {
+                const teamDiv = document.createElement('div');
+                teamDiv.className = 'team';
+                teamDiv.textContent = `Team: ${team.name}, Score: ${team.score}, Status: ${team.status || 'N/A'}`;
+                scoreBoard.appendChild(teamDiv);
+            });
+        } else {
+            console.error('Scoreboard element not found.');
+        }
+    }
+});
