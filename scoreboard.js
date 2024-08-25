@@ -7,29 +7,60 @@ document.addEventListener('DOMContentLoaded', function() {
     const refreshButton = document.getElementById('refresh-btn');
     const scoreBoard = document.getElementById('score-board');
 
-    if (refreshButton) {
-        refreshButton.addEventListener('click', async function() {
-            try {
-                const { data, error } = await supabase
-                    .from('teams')
-                    .select('*');
+    // Function to fetch and update the scoreboard
+    async function fetchAndUpdateScoreBoard() {
+        try {
+            const { data, error } = await supabase
+                .from('teams')
+                .select('*')
+                .order('score', { ascending: false }); // Sort by score in descending order
 
-                if (error) {
-                    console.error('Error loading teams:', error);
-                } else {
-                    updateScoreBoard(data);
-                }
-            } catch (err) {
-                console.error('Error fetching teams:', err);
+            if (error) {
+                console.error('Error loading teams:', error);
+            } else {
+                updateScoreBoard(data);
             }
-        });
+        } catch (err) {
+            console.error('Error fetching teams:', err);
+        }
+    }
+
+    // Event listener for refresh button
+    if (refreshButton) {
+        refreshButton.addEventListener('click', fetchAndUpdateScoreBoard);
     } else {
         console.error('Refresh button not found.');
     }
 
+    // Function to update scoreboard
     function updateScoreBoard(teams) {
         if (scoreBoard) {
-            scoreBoard.innerHTML = '';
+            // Create and append the table header if it does not exist
+            if (!scoreBoard.querySelector('thead')) {
+                const thead = document.createElement('thead');
+                const headerRow = document.createElement('tr');
+                const headers = ['Team Name', 'Score', 'Status'];
+                
+                headers.forEach(headerText => {
+                    const th = document.createElement('th');
+                    th.textContent = headerText;
+                    headerRow.appendChild(th);
+                });
+
+                thead.appendChild(headerRow);
+                scoreBoard.appendChild(thead);
+            }
+
+            // Create or clear the table body
+            let tbody = scoreBoard.querySelector('tbody');
+            if (!tbody) {
+                tbody = document.createElement('tbody');
+                scoreBoard.appendChild(tbody);
+            } else {
+                tbody.innerHTML = '';
+            }
+
+            // Add team data to the table
             teams.forEach(team => {
                 const row = document.createElement('tr');
 
@@ -42,13 +73,16 @@ document.addEventListener('DOMContentLoaded', function() {
                 row.appendChild(scoreCell);
 
                 const statusCell = document.createElement('td');
-                statusCell.textContent = team.status || '';
+                statusCell.textContent = team.status || ''; // Empty if status is null or undefined
                 row.appendChild(statusCell);
 
-                scoreBoard.appendChild(row);
+                tbody.appendChild(row);
             });
         } else {
             console.error('Scoreboard element not found.');
         }
     }
+
+    // Fetch and update scoreboard initially when the page loads
+    fetchAndUpdateScoreBoard();
 });
