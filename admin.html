@@ -5,48 +5,45 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Panel</title>
     <link rel="stylesheet" href="style.css">
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
-    <script src="admin.js" defer></script>
 </head>
 <body>
     <div class="container">
-        <!-- بخش ساخت تیم -->
-        <h2>Create Team</h2>
-        <form id="create-team-form">
-            <input type="text" id="team-name" placeholder="Team Name" required>
-            <button type="submit">Create Team</button>
-        </form>
+        <h2>Admin Panel</h2>
+        <div class="form-container">
+            <h3>Create Team</h3>
+            <form id="create-team-form">
+                <input type="text" id="create-team-name" placeholder="Team Name" required>
+                <button type="submit" class="btn">Create Team</button>
+            </form>
+        </div>
 
-        <!-- بخش آپدیت تیم -->
-        <h2>Update Team</h2>
-        <form id="update-team-form">
-            <select id="update-team-name"></select>
-            <input type="number" id="team-score" placeholder="Score" required>
-            <input type="text" id="team-status" placeholder="Status">
-            <button type="submit">Update Team</button>
-        </form>
+        <div class="form-container">
+            <h3>Update Team</h3>
+            <form id="update-team-form">
+                <select id="update-team-select" required>
+                    <!-- Options will be populated here -->
+                </select>
+                <input type="number" id="update-team-score" placeholder="Score" value="0">
+                <input type="text" id="update-team-status" placeholder="Status (optional)">
+                <button type="submit" class="btn">Update Team</button>
+            </form>
+        </div>
 
-        <!-- بخش حذف تیم -->
-        <h2>Delete Team</h2>
-        <form id="delete-team-form">
-            <select id="delete-team-name"></select>
-            <button type="submit">Delete Team</button>
-        </form>
+        <div class="form-container">
+            <h3>Delete Team</h3>
+            <form id="delete-team-form">
+                <select id="delete-team-select" required>
+                    <!-- Options will be populated here -->
+                </select>
+                <button type="submit" class="btn">Delete Team</button>
+            </form>
+        </div>
 
-        <!-- بخش تیم بورد -->
-        <h2>Team Board</h2>
-        <table id="team-board">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Score</th>
-                    <th>Status</th>
-                </tr>
-            </thead>
-            <tbody id="team-board-body">
-                <!-- تیم‌ها اینجا نمایش داده می‌شوند -->
-            </tbody>
-        </table>
+        <div class="team-board">
+            <h3>Team Board</h3>
+            <div id="team-board"></div>
+        </div>
     </div>
+    <script src="admin.js"></script>
 </body>
 </html>
