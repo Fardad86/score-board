@@ -28,27 +28,28 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function updateScoreBoard(teams) {
-        if (scoreBoardBody) {
-            scoreBoardBody.innerHTML = '';
+        if (scoreBoard) {
+            scoreBoard.innerHTML = '';
             teams.forEach(team => {
-                const row = document.createElement('tr');
-
+                const teamDiv = document.createElement('tr');
+                
                 const nameCell = document.createElement('td');
                 nameCell.textContent = team.name;
-                row.appendChild(nameCell);
-
+                teamDiv.appendChild(nameCell);
+                
                 const scoreCell = document.createElement('td');
                 scoreCell.textContent = team.score;
-                row.appendChild(scoreCell);
-
+                teamDiv.appendChild(scoreCell);
+                
                 const statusCell = document.createElement('td');
-                statusCell.textContent = team.status || 'N/A';
-                row.appendChild(statusCell);
-
-                scoreBoardBody.appendChild(row);
+                statusCell.textContent = team.status ? team.status : '';
+                teamDiv.appendChild(statusCell);
+                
+                scoreBoard.appendChild(teamDiv);
             });
         } else {
-            console.error('Scoreboard body element not found.');
+            console.error('Scoreboard element not found.');
         }
     }
+
 });
