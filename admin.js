@@ -83,7 +83,8 @@ document.addEventListener('DOMContentLoaded', () => {
         if (fetchError) {
             console.error('Error fetching current team score:', fetchError);
         } else {
-            const newScore = (currentData ? currentData.score : 0) + score;
+            // Replace the old score with the new score
+            const newScore = score;
 
             const { error: updateError } = await supabase
                 .from('teams')
