@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
 
     const refreshButton = document.getElementById('refresh-btn');
-    const scoreBoardBody = document.querySelector('#score-board tbody');
+    const scoreBoard = document.getElementById('score-board');
 
     if (refreshButton) {
         refreshButton.addEventListener('click', async function() {
@@ -31,25 +31,24 @@ document.addEventListener('DOMContentLoaded', function() {
         if (scoreBoard) {
             scoreBoard.innerHTML = '';
             teams.forEach(team => {
-                const teamDiv = document.createElement('tr');
-                
+                const row = document.createElement('tr');
+
                 const nameCell = document.createElement('td');
                 nameCell.textContent = team.name;
-                teamDiv.appendChild(nameCell);
-                
+                row.appendChild(nameCell);
+
                 const scoreCell = document.createElement('td');
                 scoreCell.textContent = team.score;
-                teamDiv.appendChild(scoreCell);
-                
+                row.appendChild(scoreCell);
+
                 const statusCell = document.createElement('td');
-                statusCell.textContent = team.status ? team.status : '';
-                teamDiv.appendChild(statusCell);
-                
-                scoreBoard.appendChild(teamDiv);
+                statusCell.textContent = team.status || '';
+                row.appendChild(statusCell);
+
+                scoreBoard.appendChild(row);
             });
         } else {
             console.error('Scoreboard element not found.');
         }
     }
-
 });
