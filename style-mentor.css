@@ -55,8 +55,10 @@ input[type="number"], input[type="text"], select {
     border: 1px solid #87CEFA; /* Light blue border */
     border-radius: 5px;
     margin-bottom: 10px;
+    box-sizing: border-box; /* Ensure padding and border are included in the element's total width */
 }
 
+/* Fix for input and select fields to ensure they don't overflow */
 input[type="number"]:focus, input[type="text"]:focus, select:focus {
     border-color: #1E90FF; /* Bright blue focus border */
 }
