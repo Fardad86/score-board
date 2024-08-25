@@ -1,54 +1,95 @@
+/* Reset and base styles */
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    color: #333;
+    background-color: #f0f4f7;
     margin: 0;
     padding: 0;
 }
 
 .container {
-    width: 80%;
+    max-width: 800px;
     margin: 20px auto;
-    background-color: #fff;
     padding: 20px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
 }
 
 h2 {
-    text-align: center;
-    color: #444;
+    color: #333;
+    margin-bottom: 20px;
 }
 
-.btn {
-    display: block;
-    margin: 20px auto;
-    padding: 10px 20px;
-    background-color: #5cb85c;
-    color: white;
+/* Button styles */
+button {
+    background-color: #007bff;
+    color: #fff;
     border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+button:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}
+
+/* Table styles */
+#score-board {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+#score-board thead {
+    background-color: #007bff;
+    color: #fff;
+}
+
+#score-board th, #score-board td {
+    padding: 12px;
+    border: 1px solid #ddd;
+}
+
+#score-board tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+#score-board tr:hover {
+    background-color: #f1f1f1;
     cursor: pointer;
 }
 
-.btn:hover {
-    background-color: #4cae4c;
+/* Highlight teams with higher scores */
+#score-board td {
+    text-align: center;
+    transition: background-color 0.3s, font-weight 0.3s, box-shadow 0.3s;
 }
 
-.score-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 20px 0;
+#score-board tr.high-score {
+    background: linear-gradient(135deg, rgba(255, 223, 0, 0.6), rgba(255, 200, 0, 0.8));
+    font-weight: bold;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
-.score-table th, .score-table td {
-    padding: 12px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
+#score-board tr.high-score:hover {
+    background: linear-gradient(135deg, rgba(255, 223, 0, 0.8), rgba(255, 200, 0, 1));
 }
 
-.score-table th {
-    background-color: #f2f2f2;
-}
+/* Responsive design */
+@media (max-width: 600px) {
+    button {
+        width: 100%;
+        font-size: 18px;
+        padding: 15px;
+    }
 
-.score-table tr:hover {
-    background-color: #f1f1f1;
+    #score-board th, #score-board td {
+        font-size: 14px;
+        padding: 8px;
+    }
 }
