@@ -1,4 +1,3 @@
-// Make sure to use the correct version of the Supabase library
 const script = document.createElement('script');
 script.src = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.0.0/dist/supabase.min.js';
 script.onload = () => {
@@ -21,6 +20,7 @@ script.onload = () => {
                     if (error) {
                         console.error('Error loading teams:', error);
                     } else {
+                        console.log('Teams data:', data);  // Debug: Log the data received
                         updateScoreBoard(data);
                     }
                 } catch (err) {
@@ -30,6 +30,11 @@ script.onload = () => {
         }
 
         function updateScoreBoard(teams) {
+            if (!teams || teams.length === 0) {
+                scoreBoardBody.innerHTML = '<tr><td colspan="3">No teams found</td></tr>';
+                return;
+            }
+
             scoreBoardBody.innerHTML = '';
             teams.forEach(team => {
                 const row = document.createElement('tr');
@@ -49,6 +54,9 @@ script.onload = () => {
                 scoreBoardBody.appendChild(row);
             });
         }
+
+        // Trigger initial data load
+        refreshButton.click();
     });
 };
 document.head.appendChild(script);
