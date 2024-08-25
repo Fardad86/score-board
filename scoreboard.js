@@ -2,7 +2,14 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize Supabase client
     const supabaseUrl = 'https://pyecsyykgzeionihrhwi.supabase.co';
     const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InB5ZWNzeXlrZ3plaW9uaWhyaHdpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjQ1MjIzNzMsImV4cCI6MjA0MDA5ODM3M30.oBNxX9Hl-89r_aCrzLJwbkdtdJB-e7rhOmhZd0q9RUc';
-    const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+
+    // Ensure Supabase is loaded from CDN before using it
+    if (typeof supabase === 'undefined') {
+        console.error('Supabase client is not loaded correctly.');
+        return;
+    }
+
+    const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
 
     const refreshButton = document.getElementById('refresh-btn');
     const scoreBoardBody = document.querySelector('#score-board tbody');
@@ -10,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (refreshButton) {
         refreshButton.addEventListener('click', async function() {
             try {
-                const { data, error } = await supabase
+                const { data, error } = await supabaseClient
                     .from('teams')
                     .select('*');
 
