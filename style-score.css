@@ -1,95 +1,100 @@
-/* Reset and base styles */
+/* General Styles */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f0f4f7;
     margin: 0;
-    padding: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, rgba(173, 216, 230, 0.5), rgba(144, 238, 144, 0.5));
+    color: #333;
 }
 
+/* Container */
 .container {
-    max-width: 800px;
+    width: 80%;
     margin: 20px auto;
     padding: 20px;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    text-align: center;
+    background: rgba(255, 255, 255, 0.6); /* White background with 60% opacity */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border: 2px solid #87CEFA; /* Light blue border */
 }
 
-h2 {
-    color: #333;
-    margin-bottom: 20px;
+/* Header */
+h2, h3 {
+    color: #1E90FF; /* Bright blue color */
 }
 
-/* Button styles */
+/* Button */
 button {
-    background-color: #007bff;
-    color: #fff;
+    background: #1E90FF; /* Bright blue background */
+    color: white;
     border: none;
+    border-radius: 5px;
     padding: 10px 20px;
-    font-size: 16px;
-    border-radius: 4px;
     cursor: pointer;
-    transition: background-color 0.3s, transform 0.3s;
+    font-size: 16px;
+    transition: background 0.3s ease;
 }
 
 button:hover {
-    background-color: #0056b3;
-    transform: scale(1.05);
+    background: #4682B4; /* Darker blue on hover */
 }
 
-/* Table styles */
-#score-board {
+/* Form */
+form {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin: 10px 0 5px;
+    color: #4682B4; /* Darker blue for labels */
+}
+
+input[type="number"], input[type="text"], select {
     width: 100%;
-    border-collapse: collapse;
+    padding: 10px;
+    border: 1px solid #87CEFA; /* Light blue border */
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+input[type="number"]:focus, input[type="text"]:focus, select:focus {
+    border-color: #1E90FF; /* Bright blue focus border */
+}
+
+/* Table Styles */
+#score-board {
     margin-top: 20px;
 }
 
-#score-board thead {
-    background-color: #007bff;
-    color: #fff;
+.team {
+    background: rgba(255, 255, 255, 0.8); /* White background with slight opacity */
+    border: 2px solid #32CD32; /* Light green border */
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-#score-board th, #score-board td {
-    padding: 12px;
-    border: 1px solid #ddd;
+.team:nth-child(odd) {
+    background: rgba(255, 255, 255, 0.9); /* Slightly less transparent for odd rows */
 }
 
-#score-board tr:nth-child(even) {
-    background-color: #f9f9f9;
+.team strong {
+    color: #1E90FF; /* Bright blue color for labels inside team div */
 }
 
-#score-board tr:hover {
-    background-color: #f1f1f1;
-    cursor: pointer;
+.team.highlight {
+    border-color: #1E90FF; /* Highlight with bright blue border */
+    font-weight: bold; /* Make text bold */
 }
 
-/* Highlight teams with higher scores */
-#score-board td {
-    text-align: center;
-    transition: background-color 0.3s, font-weight 0.3s, box-shadow 0.3s;
+/* Animation for the team with higher score */
+@keyframes highlightAnimation {
+    0% { background-color: rgba(255, 255, 255, 0.8); }
+    50% { background-color: rgba(173, 216, 230, 0.5); }
+    100% { background-color: rgba(255, 255, 255, 0.8); }
 }
 
-#score-board tr.high-score {
-    background: linear-gradient(135deg, rgba(255, 223, 0, 0.6), rgba(255, 200, 0, 0.8));
-    font-weight: bold;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-}
-
-#score-board tr.high-score:hover {
-    background: linear-gradient(135deg, rgba(255, 223, 0, 0.8), rgba(255, 200, 0, 1));
-}
-
-/* Responsive design */
-@media (max-width: 600px) {
-    button {
-        width: 100%;
-        font-size: 18px;
-        padding: 15px;
-    }
-
-    #score-board th, #score-board td {
-        font-size: 14px;
-        padding: 8px;
-    }
+.team.highlight {
+    animation: highlightAnimation 1s ease infinite;
 }
